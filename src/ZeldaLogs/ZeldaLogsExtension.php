@@ -21,8 +21,5 @@ class ZeldaLogsExtension implements ExtensionInterface
         $app['log.manager'] = $app->share(function () {
             return new LogManager();
         });
-        
-        $app->get('/', function() use ($app) {
-        });
     }
 }

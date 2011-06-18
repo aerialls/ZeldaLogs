@@ -9,15 +9,6 @@
  * file that was distributed with this source code.
  */
 
-require_once __DIR__.'/../vendor/Silex/silex.phar';
-
-$app = new Silex\Application();
-
-$app['autoloader']->registerNamespaces(array(
-    'ZeldaLogs' => __DIR__.'/../src',
-    'Symfony'   => __DIR__.'/../vendor'
-));
-
-$app->register(new ZeldaLogs\ZeldaLogsExtension());
+$app = require_once __DIR__.'/../Application.php';
 
 $app->run();
