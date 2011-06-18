@@ -18,8 +18,11 @@ class ZeldaLogsExtension implements ExtensionInterface
 {
     public function register(Application $app)
     {
-        $app->get('/', function() { 
-            return 'ZeldaLogs2';
+        $app['log.manager'] = $app->share(function () {
+            return new LogManager();
+        });
+        
+        $app->get('/', function() use ($app) {
         });
     }
 }
