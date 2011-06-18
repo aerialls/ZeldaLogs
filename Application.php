@@ -18,6 +18,10 @@ $app['autoloader']->registerNamespaces(array(
     'Symfony'   => __DIR__.'/vendor'
 ));
 
+$app->register(new Silex\Extension\HttpCacheExtension(), array(
+    'http_cache.cache_dir' => __DIR__.'/cache'
+));
+
 $app->register(new ZeldaLogs\ZeldaLogsExtension(), array(
     'zeldalogs.prefix' => 'zelda.log.',
     'zeldalogs.date.format' => 'dMY',
