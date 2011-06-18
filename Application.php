@@ -18,7 +18,11 @@ $app['autoloader']->registerNamespaces(array(
     'Symfony'   => __DIR__.'/vendor'
 ));
 
-$app->register(new ZeldaLogs\ZeldaLogsExtension());
+$app->register(new ZeldaLogs\ZeldaLogsExtension(), array(
+    'zeldalogs.prefix' => 'zelda.log.',
+    'zeldalogs.date.format' => 'dMY',
+    'zeldalogs.path' => __DIR__.'/logs'
+));
 
 $app->get('/', function() {
     return 'ZeldaLogs';

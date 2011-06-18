@@ -13,7 +13,16 @@ namespace ZeldaLogs;
 
 class LogManager implements LogManagerInterface
 {
-    const PATH = '../../logs';
+    protected $path;
+    protected $prefix;
+    protected $dateFormat;
+    
+    public function __construct($path, $prefix, $dateFormat)
+    {
+        $this->path = $path;
+        $this->prefix = $prefix;
+        $this->dateFormat = $dateFormat;
+    }
     
     public function find(\DateTime $date)
     {
