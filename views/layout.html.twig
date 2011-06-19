@@ -12,10 +12,26 @@
     </head>
     <body>
         <div id="wrap">
-            {% block content %}{% endblock %}
-        </div>
-        <div id="footer">
-            {{ 'now' | date('Y') }} &copy; <a target="_blank" href="http://julien.brochet.me">Julien Brochet</a> - Propulsé par <a href="http://silex-project.org/" target="_blank">Silex</a>
+            <div id="header">
+                <div id="logo">
+                    <img src="/images/logo.png" />
+                </div>
+                <div id="text">
+                    <p>Logs IRC #Zelda</p>
+                    <p id="small">irc.epiknet.org</p>
+                </div>
+            </div>
+            
+            <div id="space">
+            </div>
+            
+            <div id="content">
+                {% block content %}{% endblock %}
+            </div>
+            
+            <div id="footer">
+                {{ 'now' | date('Y') }} &copy; <a target="_blank" href="http://julien.brochet.me">Julien Brochet</a> - Propulsé par <a href="http://silex-project.org/" target="_blank">Silex</a>
+            </div>
         </div>
     </body>
 </html>
