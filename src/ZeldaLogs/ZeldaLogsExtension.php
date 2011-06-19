@@ -19,7 +19,7 @@ class ZeldaLogsExtension implements ExtensionInterface
     public function register(Application $app)
     {
         $app['log.manager'] = $app->share(function () use ($app) {
-            return new LogManager($app['zeldalogs.path'], $app['zeldalogs.prefix'], $app['zeldalogs.date.format']);
+            return new LogManager($app['zeldalogs.directory'], $app['zeldalogs.prefix'], $app['zeldalogs.date.format']);
         });
     }
 }

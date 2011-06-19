@@ -14,9 +14,21 @@ namespace ZeldaLogs;
 class Log
 {
     protected $date;
-    protected $path;
+    protected $file;
     
-    public function __construct($path)
+    public function __construct(\DateTime $date, \SplFileInfo $file)
     {
+        $this->date = $date;
+        $this->file = $file;
+    }
+    
+    public function getDate()
+    {
+        return $this->date;
+    }
+    
+    public function getFile()
+    {
+        return $this->file;
     }
 }

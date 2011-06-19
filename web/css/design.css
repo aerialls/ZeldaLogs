@@ -26,6 +26,13 @@ a {
     color: #426b7d;
 }
 
+h1 {
+    margin: 10px 20px;
+    font-size: 27px;
+    color: #426b7d;
+    font-family: Delicious;
+}
+
 #wrap {
     width: 1000px;
     margin: 0 auto;

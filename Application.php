@@ -30,11 +30,13 @@ $app->register(new Silex\Extension\TwigExtension(), array(
 $app->register(new ZeldaLogs\ZeldaLogsExtension(), array(
     'zeldalogs.prefix'      => 'zelda.log.',
     'zeldalogs.date.format' => 'dMY',
-    'zeldalogs.path'        => __DIR__.'/logs'
+    'zeldalogs.directory'   => __DIR__.'/logs'
 ));
 
 $app->get('/', function() use ($app) {
-    return $app['twig']->render('index.html.twig');
+    $logs = $app['log.manager']->findAll();
+
+    return $app['twig']->render('index.html.twig', array('logs' => $logs));
 });
 
 return $app;
