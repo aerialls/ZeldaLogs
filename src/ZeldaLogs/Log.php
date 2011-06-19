@@ -15,11 +15,18 @@ class Log
 {
     protected $date;
     protected $file;
+    protected $formatter;
     
-    public function __construct(\DateTime $date, \SplFileInfo $file)
+    public function __construct(\IntlDateFormatter $formatter, \DateTime $date, \SplFileInfo $file)
     {
         $this->date = $date;
         $this->file = $file;
+        $this->formatter = $formatter;
+    }
+    
+    public function getFormattedDate()
+    {
+        return $this->formatter->format($this->date);
     }
     
     public function getDate()

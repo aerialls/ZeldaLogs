@@ -14,16 +14,23 @@ namespace ZeldaLogs;
 class LogFactory
 {
     protected $prefix;
+    protected $formatter;
     
     public function __construct($prefix)
     {
         $this->prefix = $prefix;
+        
+        $this->formatter = new \IntlDateFormatter(
+            \Locale::getDefault(),
+            \IntlDateFormatter::MEDIUM,
+            \IntlDateFormatter::NONE
+        );
     }
     
     public function create(\SplFileInfo $file)
     {
         $date = new \DateTime(substr($file->getFilename(), strlen($this->prefix)));
         
-        return new Log($date, $file);
+        return new Log($this->formatter, $date, $file);
     }
 }
