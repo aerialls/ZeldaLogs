@@ -22,14 +22,19 @@ $app->register(new Silex\Extension\HttpCacheExtension(), array(
     'http_cache.cache_dir' => __DIR__.'/cache'
 ));
 
-$app->register(new ZeldaLogs\ZeldaLogsExtension(), array(
-    'zeldalogs.prefix' => 'zelda.log.',
-    'zeldalogs.date.format' => 'dMY',
-    'zeldalogs.path' => __DIR__.'/logs'
+$app->register(new Silex\Extension\TwigExtension(), array(
+    'twig.path'       => __DIR__.'/views',
+    'twig.class_path' => __DIR__.'/vendor/Twig/lib',
 ));
 
-$app->get('/', function() {
-    return 'ZeldaLogs';
+$app->register(new ZeldaLogs\ZeldaLogsExtension(), array(
+    'zeldalogs.prefix'      => 'zelda.log.',
+    'zeldalogs.date.format' => 'dMY',
+    'zeldalogs.path'        => __DIR__.'/logs'
+));
+
+$app->get('/', function() use ($app) {
+    return $app['twig']->render('index.html.twig');
 });
 
 return $app;
