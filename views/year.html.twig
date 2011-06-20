@@ -6,8 +6,12 @@
     <h1>Liste des archives pour l'année {{ name }}</h1>
     
     <div id="years">
-        {% for year in years %}
-            <a href="/logs/{{ year.getName }}">{{ year.getName }}</a>
+        {% for tmp in years %}
+            {% if tmp == year %}
+                {{ tmp.getName }}
+            {% else %}
+                <a href="/logs/{{ tmp.getName }}">{{tmp.getName }}</a>
+            {% endif %}
         {% endfor %}
     </div>
     
