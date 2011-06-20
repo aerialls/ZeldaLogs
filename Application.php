@@ -39,7 +39,7 @@ $app->get('/logs/{year}', function($year) use ($app) {
     $logs = $app['log.manager']->retrieveFiles()
                                ->retrieveByYear($year);
     
-    $years = $app['log.manager']->getYears();
+    $years = $app['log.manager']->getYears(true);
 
     return $app['twig']->render('year.html.twig', array(
         'year' => $year,

@@ -36,7 +36,7 @@ class LogManager implements LogManagerInterface
     
     public function retrieveFiles($force = false)
     {
-        if ($this->years && !$force) {
+        if (false === $force && $this->years) {
             return $this;
         }
         
@@ -89,10 +89,12 @@ class LogManager implements LogManagerInterface
         $this->years[$year]->addLog($log);
     }
     
-    public function getYears()
+    public function getYears($sorted = false)
     {
-        if (!$this->years) {
-            throw new \BadFunctionCallException('You need to call LogManager::retrieveFiles first.');
+        if (true === $sorted) {
+            usort($this->years, function ($a, $b) {
+                return $a->getName() - $b->getName();
+            });
         }
         
         return $this->years;
