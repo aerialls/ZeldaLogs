@@ -34,6 +34,24 @@ class LogManager implements LogManagerInterface
         $this->factory = new LogFactory($prefix);
     }
     
+    public function retrieveFiles($force = false)
+    {
+        if ($this->years && !$force) {
+            return;
+        }
+        
+        $finder = Finder::create();
+        
+        $iterator = $finder->name($this->prefix . '*')
+                           ->in($this->directory)
+                           ->sortByName();
+        
+        foreach ($iterator as $file) {
+            $log = $this->factory->create($file);
+            $this->addLog($log);
+        }
+    }
+    
     public function retrieveByDate(\DateTime $date)
     {
         $format = $date->format($this->format);
@@ -75,23 +93,5 @@ class LogManager implements LogManagerInterface
     public function getYears()
     {
         return $this->years;
-    }
-    
-    protected function retrieveFiles($force = false)
-    {
-        if ($this->years && !$force) {
-            return;
-        }
-        
-        $finder = Finder::create();
-        
-        $iterator = $finder->name($this->prefix . '*')
-                           ->in($this->directory)
-                           ->sortByName();
-        
-        foreach ($iterator as $file) {
-            $log = $this->factory->create($file);
-            $this->addLog($log);
-        }
     }
 }
