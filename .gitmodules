@@ -4,3 +4,6 @@
 [submodule "vendor/Symfony/Component/Finder"]
 	path = vendor/Symfony/Component/Finder
 	url = git://github.com/symfony/Finder.git
+[submodule "vendor/Madalynn/mIRCParserExtension"]
+	path = vendor/Madalynn/mIRCParserExtension
+	url = git://github.com/aerialls/mIRCParserExtension.git
