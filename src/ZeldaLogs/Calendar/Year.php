@@ -11,6 +11,8 @@
 
 namespace ZeldaLogs\Calendar;
 
+use ZeldaLogs\Log;
+
 class Year
 {
     protected $year;
@@ -25,10 +27,21 @@ class Year
     public function getMonth($month)
     {        
         if (false === array_key_exists($month, $this->months)) {
-            $this->months[$month] = new Month($month, $this->year);
+            return null;
         }
         
         return $this->months[$month];
+    }
+    
+    public function addLog(Log $log)
+    {
+        $month = (int)$log->getDate()->format('n');
+        
+        if (false === array_key_exists($month, $this->months)) {
+            $this->months[$month] = new Month($month, $this->year);
+        }
+        
+        $this->months[$month]->addLog($log);
     }
     
     public function getMonths()

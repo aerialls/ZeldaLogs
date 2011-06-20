@@ -34,7 +34,7 @@ class LogManager implements LogManagerInterface
         $this->factory = new LogFactory($prefix);
     }
     
-    public function find(\DateTime $date)
+    public function retrieveByDate(\DateTime $date)
     {
         $format = $date->format($this->format);
         
@@ -50,23 +50,26 @@ class LogManager implements LogManagerInterface
         return null;
     }
     
-    public function findAll()
+    public function retrieveByYear($year)
     {
-        if ($this->files) {
-            return $this->files;
+        $this->retrieveFiles();
+        
+        if (false === array_key_exists($year, $this->years)) {
+            return null;
         }
         
-        $finder = Finder::create();
+        return $this->years[$year];
+    }
+
+    public function addLog(Log $log)
+    {
+        $year = (int)$log->getDate()->format('Y');
         
-        $iterator = $finder->name($this->prefix . '*')
-                           ->in($this->directory)
-                           ->sortByName();
-        
-        foreach ($iterator as $file) {
-            $this->files[] = $this->factory->create($file);
+        if (false === array_key_exists($year, $this->years)) {
+            $this->years[$year] = new Year($year);
         }
         
-        return $this->files;
+        $this->years[$year]->addLog($log);
     }
     
     protected function retrieveFiles($force = false)
@@ -85,31 +88,5 @@ class LogManager implements LogManagerInterface
             $log = $this->factory->create($file);
             $this->addLog($log);
         }
-    }
-    
-    public function addLog(Log $log)
-    {
-        $year = (int)$log->getDate()->format('Y');
-        $month = (int)$log->getDate()->format('n');
-        
-        if (false === array_key_exists($year, $this->years)) {
-            $this->years[$year] = new Year($year);
-        }
-        
-        $year = $this->years[$year];
-        $month = $year->getMonth($month);
-            
-        $month->addLog($log);
-    }
-    
-    public function retrieveByYear($year)
-    {
-        $this->retrieveFiles();
-        
-        if (false === array_key_exists($year, $this->years)) {
-            return null;
-        }
-        
-        return $this->years[$year];
     }
 }

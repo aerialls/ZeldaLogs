@@ -14,23 +14,25 @@
             {% set month =  year.getMonth(i) %}
             {% set days = month.numberOfDays %}
 
-            <div class="calendar">
-                <div class="title">
-                    {{ month.getName }}
-                </div>
+            {% if month %}
+                <div class="calendar">
+                    <div class="title">
+                        {{ month.getName }}
+                    </div>
 
-                <div class="days">
-                    {% for j in 1..days %}
-                        {% set day = month.getDay(j) %}
+                    <div class="days">
+                        {% for j in 1..days %}
+                            {% set day = month.getDay(j) %}
 
-                        {% if day %}
-                            <a href="/logs/{{ name }}/{{ i }}/{{ j }}" class="active">{{j}}</a>
-                        {% else %}
-                            <a href="#">{{ j }}</a>
-                        {% endif %}
-                    {% endfor %}
+                            {% if day %}
+                                <a href="/logs/{{ name }}/{{ i }}/{{ j }}" class="active">{{j}}</a>
+                            {% else %}
+                                <a href="#">{{ j }}</a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
                 </div>
-            </div>
+            {% endif %}
         {% endfor %}
     {% endif %}
 {% endblock %}

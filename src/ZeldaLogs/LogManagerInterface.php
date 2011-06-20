@@ -13,7 +13,7 @@ namespace ZeldaLogs;
 
 interface LogManagerInterface
 {
-    public function find(\DateTime $date);
+    public function retrieveByDate(\DateTime $date);
     
-    public function findAll();
+    public function retrieveByYear($year);
 }

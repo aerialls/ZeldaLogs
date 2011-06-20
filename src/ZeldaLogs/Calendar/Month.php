@@ -22,18 +22,16 @@ class Month
     
     public function __construct($month, $year)
     {
-        $this->days = array();
         $this->month = $month;
         $this->year = $year;
+        
+        $this->days = array();
         $this->date = new \DateTime(implode('-', array($year, $month, 1)));
     }
     
     public function addLog(Log $day)
     {
         $number = (int)$day->getDate()->format('j');
-        
-        // TODO: Add a verification if the day
-        // is higher than date('t')
         
         $this->days[$number] = $day;
     }
