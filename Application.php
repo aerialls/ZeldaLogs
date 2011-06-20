@@ -11,6 +11,8 @@
 
 require_once __DIR__.'/vendor/Silex/silex.phar';
 
+use Symfony\Component\HttpFoundation\Response;
+
 $app = new Silex\Application();
 
 $app['autoloader']->registerNamespaces(array(
@@ -33,10 +35,11 @@ $app->register(new ZeldaLogs\ZeldaLogsExtension(), array(
     'zeldalogs.directory'   => __DIR__.'/logs'
 ));
 
-$app->get('/', function() use ($app) {
-    $logs = $app['log.manager']->findAll();
+$app->get('/logs/{year}', function($year) use ($app) {
+    $name = $year;
+    $year = $app['log.manager']->retrieveByYear($year);
 
-    return $app['twig']->render('index.html.twig', array('logs' => $logs));
+    return $app['twig']->render('year.html.twig', array('year' => $year, 'name' => $name));
 });
 
 return $app;

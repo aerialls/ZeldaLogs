@@ -1,0 +1,36 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+    <h1>Liste des archives pour l'année {{ name }}</h1>
+    
+    {% if not year %}
+        <div class="error">
+            Aucune archive disponible pour cette année
+        </div>
+    {% else %}
+        {% for i in 1..12 %}
+            {% set month =  year.getMonth(i) %}
+            {% set days = month.numberOfDays %}
+
+            <div class="calendar">
+                <div class="title">
+                    {{ month.getName }}
+                </div>
+
+                <div class="days">
+                    {% for j in 1..days %}
+                        {% set day = month.getDay(j) %}
+
+                        {% if day %}
+                            <a href="/logs/{{ name }}/{{ i }}/{{ j }}" class="active">{{j}}</a>
+                        {% else %}
+                            <a href="#">{{ j }}</a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

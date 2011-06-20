@@ -12,6 +12,8 @@
 namespace ZeldaLogs;
 
 use Symfony\Component\Finder\Finder;
+use ZeldaLogs\Calendar\Year;
+use ZeldaLogs\Calendar\Month;
 
 class LogManager implements LogManagerInterface
 {
@@ -19,7 +21,7 @@ class LogManager implements LogManagerInterface
     protected $prefix;
     protected $format;
     
-    protected $files;
+    protected $years;
     protected $factory;
     
     public function __construct($directory, $prefix, $format)
@@ -28,7 +30,7 @@ class LogManager implements LogManagerInterface
         $this->prefix = $prefix;
         $this->format = $format;
         
-        $this->files = array();
+        $this->years = array();
         $this->factory = new LogFactory($prefix);
     }
     
@@ -65,5 +67,49 @@ class LogManager implements LogManagerInterface
         }
         
         return $this->files;
+    }
+    
+    protected function retrieveFiles($force = false)
+    {
+        if ($this->years && !$force) {
+            return;
+        }
+        
+        $finder = Finder::create();
+        
+        $iterator = $finder->name($this->prefix . '*')
+                           ->in($this->directory)
+                           ->sortByName();
+        
+        foreach ($iterator as $file) {
+            $log = $this->factory->create($file);
+            $this->addLog($log);
+        }
+    }
+    
+    public function addLog(Log $log)
+    {
+        $year = (int)$log->getDate()->format('Y');
+        $month = (int)$log->getDate()->format('n');
+        
+        if (false === array_key_exists($year, $this->years)) {
+            $this->years[$year] = new Year($year);
+        }
+        
+        $year = $this->years[$year];
+        $month = $year->getMonth($month);
+            
+        $month->addLog($log);
+    }
+    
+    public function retrieveByYear($year)
+    {
+        $this->retrieveFiles();
+        
+        if (false === array_key_exists($year, $this->years)) {
+            return null;
+        }
+        
+        return $this->years[$year];
     }
 }
