@@ -36,8 +36,7 @@ $app->register(new ZeldaLogs\ZeldaLogsExtension(), array(
 ));
 
 $app->get('/logs/{year}', function($year) use ($app) {
-    $name = $year;
-    $year = $app['log.manager']->retrieveFiles()
+    $logs = $app['log.manager']->retrieveFiles()
                                ->retrieveByYear($year);
     
     $years = $app['log.manager']->getYears();
@@ -45,7 +44,7 @@ $app->get('/logs/{year}', function($year) use ($app) {
     return $app['twig']->render('year.html.twig', array(
         'year' => $year,
         'years' => $years,
-        'name' => $name,
+        'logs' => $logs,
     ));
 });
 
