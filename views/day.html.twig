@@ -5,7 +5,7 @@
 {% block content %}
     <h1>Archives du {{ day.getFormattedDate }}</h1>
 
-    {% set logs = day.getPage(0) %}
+    {% set logs = day.getPage(1) %}
 
     {% for line in logs %}
         <div class="line">

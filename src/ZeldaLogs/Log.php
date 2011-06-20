@@ -19,9 +19,6 @@ class Log
     protected $dateFormatter;
     protected $content;
     
-    const RAW = 0;
-    const FORMATTED = 1;
-    
     public function __construct(\IntlDateFormatter $dateFormatter, \DateTime $date, \SplFileInfo $file, $number = 400)
     {
         $this->date = $date;
@@ -46,12 +43,35 @@ class Log
             return $this;
         }
 
-        $this->content = new \SplFileObject($this->file->getPathname());
+        $this->content = file($this->file->getPathname(), FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
         
         return $this;
     }
     
-    public function getPage($page, $type = self::RAW) 
+    public function getPage($page) 
+    {
+        if ($page <= 0) {
+            throw new \InvalidArgumentException('The page must be a positive integer');
+        }
+        
+        $content = $this->content;
+        
+        if (null === $content) {
+            throw new \BadFunctionCallException('You need to call "Log::load" first.');
+        }
+        
+        $start = ($page - 1) * $this->number;
+        $end = $page + $this->number;
+        
+        $tmp = array();
+        for ($i = $start ; $i <= $end ; $i++) {
+            $tmp[] = utf8_encode($content[$i]);
+        }
+        
+        return $tmp;
+    }
+    
+    public function getNumberOfPages()
     {
         $content = $this->content;
         
@@ -59,23 +79,7 @@ class Log
             throw new \BadFunctionCallException('You need to call "Log::load" first.');
         }
         
-        $tmp = array();
-        $start = $page * $this->number;
-        $end = $start + $this->number;
-        
-        $content->seek($start);
-        
-        foreach ($content as $line) 
-        {
-            if ($start === $end) {
-                break;
-            }
-            
-            $tmp[] = utf8_encode($line);
-            $start++;
-        }
-        
-        return $tmp;
+        return ceil(count($this->content), $this->number);
     }
     
     public function getDate()
