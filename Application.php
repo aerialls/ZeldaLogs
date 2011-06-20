@@ -59,13 +59,15 @@ $app->get('/{year}/{month}/{day}', function($year, $month, $day) use ($app) {
         throw $notArchived;
     }
     
-    $log = $app['log.manager']->retrieveByDate($date);
+    $day = $app['log.manager']->retrieveByDate($date);
     
-    if (null === $log) {
+    if (null === $day) {
         throw $notArchived;
     }
     
-    return $app['twig']->render('day.html.twig', array('log' => $log));
+    $day->load();
+
+    return $app['twig']->render('day.html.twig', array('day' => $day));
 }); 
 
 return $app;
