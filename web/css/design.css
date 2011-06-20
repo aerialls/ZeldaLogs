@@ -85,6 +85,10 @@ h1 {
     padding: 10px 0 25px 0;
 }
 
+#years {
+    text-align: center;
+}
+
 .calendar {
     width: 300px;
     height: 300px;

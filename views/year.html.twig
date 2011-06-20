@@ -5,6 +5,12 @@
 {% block content %}
     <h1>Liste des archives pour l'année {{ name }}</h1>
     
+    <div id="years">
+        {% for year in years %}
+            <a href="/logs/{{ year.getName }}">{{ year.getName }}</a>
+        {% endfor %}
+    </div>
+    
     {% if not year %}
         <div class="error">
             Aucune archive disponible pour cette année

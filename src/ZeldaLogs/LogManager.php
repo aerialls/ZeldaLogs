@@ -72,6 +72,11 @@ class LogManager implements LogManagerInterface
         $this->years[$year]->addLog($log);
     }
     
+    public function getYears()
+    {
+        return $this->years;
+    }
+    
     protected function retrieveFiles($force = false)
     {
         if ($this->years && !$force) {
