@@ -16,23 +16,28 @@ class Log
     protected $date;
     protected $file;
     protected $number;
-    protected $formatter;
+    protected $dateFormatter;
     protected $content;
     
     const RAW = 0;
     const FORMATTED = 1;
     
-    public function __construct(\IntlDateFormatter $formatter, \DateTime $date, \SplFileInfo $file, $number = 400)
+    public function __construct(\IntlDateFormatter $dateFormatter, \DateTime $date, \SplFileInfo $file, $number = 400)
     {
         $this->date = $date;
         $this->file = $file;
-        $this->formatter = $formatter;
+        $this->dateFormatter = $dateFormatter;
+        
+        if (false === is_numeric($number)) {
+            throw new \InvalidArgumentException('$number must be a number.');
+        }
+        
         $this->number = $number;
     }
     
     public function getFormattedDate()
     {
-        return $this->formatter->format($this->date);
+        return $this->dateFormatter->format($this->date);
     }
     
     public function load($force = false)
@@ -40,7 +45,7 @@ class Log
         if (false === $force && $this->content) {
             return $this;
         }
-        
+
         $this->content = new \SplFileObject($this->file->getPathname());
         
         return $this;
@@ -48,11 +53,27 @@ class Log
     
     public function getPage($page, $type = self::RAW) 
     {
-        if (!$this->content) {
+        $content = $this->content;
+        
+        if (null === $content) {
             throw new \BadFunctionCallException('You need to call "Log::load" first.');
         }
         
         $tmp = array();
+        $start = $page * $this->number;
+        $end = $start + $this->number;
+        
+        $content->seek($start);
+        
+        foreach ($content as $line) 
+        {
+            if ($start === $end) {
+                break;
+            }
+            
+            $tmp[$start] = utf8_encode($line);
+            $start++;
+        }
         
         return $tmp;
     }

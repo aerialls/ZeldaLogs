@@ -20,6 +20,7 @@ class LogFactory
     public function __construct($prefix, $number)
     {
         $this->prefix = $prefix;
+        $this->number = $number;
         
         $this->formatter = new \IntlDateFormatter(
             \Locale::getDefault(),

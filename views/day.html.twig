@@ -3,5 +3,13 @@
 {% block title %}Accueil{% endblock %}
 
 {% block content %}
-    <h1>Archives du {{ log.getFormattedDate }}</h1>
+    <h1>Archives du {{ day.getFormattedDate }}</h1>
+
+    {% set logs = day.getPage(0) %}
+
+    {% for number, line in logs %}
+            {{number}} {{ line }}
+    {% else %}
+        Rien à afficher pour le moment pour cette journée ...
+    {% endfor %}
 {% endblock %}
