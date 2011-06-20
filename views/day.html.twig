@@ -8,7 +8,7 @@
     {% set logs = day.getPage(0) %}
 
     {% for number, line in logs %}
-            {{number}} {{ line }}
+            {{number}} {{ line | mirc_parse | e }}
     {% else %}
         Rien à afficher pour le moment pour cette journée ...
     {% endfor %}

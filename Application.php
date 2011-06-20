@@ -17,6 +17,7 @@ $app = new Silex\Application();
 
 $app['autoloader']->registerNamespaces(array(
     'ZeldaLogs' => __DIR__.'/src',
+    'Madalynn'  => __DIR__.'/vendor',
     'Symfony'   => __DIR__.'/vendor'
 ));
 

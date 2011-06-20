@@ -15,8 +15,7 @@ use Silex\ExtensionInterface;
 use Silex\Application;
 use Silex\SilexEvents;
 
-use ZeldaLogs\Formatter\mIRCFormatter;
-use ZeldaLogs\Twig\FormatterExtension;
+use Madalynn\mIRCParserExtension\mIRCParserExtension;
 
 class ZeldaLogsExtension implements ExtensionInterface
 {
@@ -31,10 +30,8 @@ class ZeldaLogsExtension implements ExtensionInterface
             );
         });
         
-        $app['dispatcher']->addListener(SilexEvents::BEFORE, function() use($app) {
-            $formatter = new mIRCFormatter();
-            
-            $app['twig']->addExtension(new FormatterExtension($formatter));
+        $app['dispatcher']->addListener(SilexEvents::BEFORE, function() use($app) {            
+            $app['twig']->addExtension(new mIRCParserExtension());
         });
     }
 }
