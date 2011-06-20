@@ -11,7 +11,7 @@
 
 require_once __DIR__.'/vendor/Silex/silex.phar';
 
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 $app = new Silex\Application();
 
@@ -46,5 +46,23 @@ $app->get('/logs/{year}', function($year) use ($app) {
         'name' => $name,
     ));
 });
+
+$app->get('/logs/{year}/{month}/{day}', function($year, $month, $day) use ($app) {
+    $notArchived = new NotFoundHttpException('This days is not archived.');
+    
+    try {
+        $date = new \DateTime(implode('-', array($year, $month, $day)));
+    } catch(Exception $e) {
+        throw $notArchived;
+    }
+    
+    $log = $app['log.manager']->retrieveByDate($date);
+    
+    if (null === $log) {
+        throw $notArchived;
+    }
+    
+    return $app['twig']->render('day.html.twig', array('log' => $log));
+}); 
 
 return $app;

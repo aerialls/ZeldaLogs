@@ -22,7 +22,7 @@ class LogFactory
         
         $this->formatter = new \IntlDateFormatter(
             \Locale::getDefault(),
-            \IntlDateFormatter::MEDIUM,
+            \IntlDateFormatter::LONG,
             \IntlDateFormatter::NONE
         );
     }
