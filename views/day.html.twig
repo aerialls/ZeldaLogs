@@ -7,8 +7,10 @@
 
     {% set logs = day.getPage(0) %}
 
-    {% for number, line in logs %}
-            {{number}} {{ line | mirc_parse | e }}
+    {% for line in logs %}
+        <div class="line">
+            {{- line | mirc_raw_parse -}}
+        </div>
     {% else %}
         Rien à afficher pour le moment pour cette journée ...
     {% endfor %}

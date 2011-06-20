@@ -33,6 +33,10 @@ h1 {
     font-family: Delicious;
 }
 
+strong {
+    font-weight: bold;
+}
+
 .clear {
     clear: both;
 }
@@ -117,4 +121,8 @@ h1 {
 .calendar .days a.active {
     background-color: #426b7d;
     color: #fff;
+}
+
+.line {
+    margin: 3px 0;
 }

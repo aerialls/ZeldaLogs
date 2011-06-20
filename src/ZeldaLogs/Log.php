@@ -71,7 +71,7 @@ class Log
                 break;
             }
             
-            $tmp[$start] = utf8_encode($line);
+            $tmp[] = utf8_encode($line);
             $start++;
         }
         
