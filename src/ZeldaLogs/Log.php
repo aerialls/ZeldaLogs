@@ -15,18 +15,46 @@ class Log
 {
     protected $date;
     protected $file;
+    protected $number;
     protected $formatter;
+    protected $content;
     
-    public function __construct(\IntlDateFormatter $formatter, \DateTime $date, \SplFileInfo $file)
+    const RAW = 0;
+    const FORMATTED = 1;
+    
+    public function __construct(\IntlDateFormatter $formatter, \DateTime $date, \SplFileInfo $file, $number = 400)
     {
         $this->date = $date;
         $this->file = $file;
         $this->formatter = $formatter;
+        $this->number = $number;
     }
     
     public function getFormattedDate()
     {
         return $this->formatter->format($this->date);
+    }
+    
+    public function load($force = false)
+    {
+        if (false === $force && $this->content) {
+            return $this;
+        }
+        
+        $this->content = new \SplFileObject($this->file->getPathname());
+        
+        return $this;
+    }
+    
+    public function getPage($page, $type = self::RAW) 
+    {
+        if (!$this->content) {
+            throw new \BadFunctionCallException('You need to call "Log::load" first.');
+        }
+        
+        $tmp = array();
+        
+        return $tmp;
     }
     
     public function getDate()

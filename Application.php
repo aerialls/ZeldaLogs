@@ -30,12 +30,13 @@ $app->register(new Silex\Extension\TwigExtension(), array(
 ));
 
 $app->register(new ZeldaLogs\ZeldaLogsExtension(), array(
-    'zeldalogs.prefix'      => 'zelda.log.',
-    'zeldalogs.date.format' => 'dMY',
-    'zeldalogs.directory'   => __DIR__.'/logs'
+    'zeldalogs.prefix'          => 'zelda.log.',
+    'zeldalogs.date.format'     => 'dMY',
+    'zeldalogs.directory'       => __DIR__.'/logs',
+    'zeldalogs.number.of.lines' => 400
 ));
 
-$app->get('/logs/{year}', function($year) use ($app) {
+$app->get('/{year}', function($year) use ($app) {
     $logs = $app['log.manager']->retrieveFiles()
                                ->retrieveByYear($year);
     
@@ -46,14 +47,15 @@ $app->get('/logs/{year}', function($year) use ($app) {
         'years' => $years,
         'logs' => $logs,
     ));
-});
+})->value('year', date('Y'));
 
-$app->get('/logs/{year}/{month}/{day}', function($year, $month, $day) use ($app) {
+$app->get('/{year}/{month}/{day}', function($year, $month, $day) use ($app) {
     $notArchived = new NotFoundHttpException('This days is not archived.');
     
     try {
         $date = new \DateTime(implode('-', array($year, $month, $day)));
-    } catch(Exception $e) {
+    } 
+    catch(Exception $e) {
         throw $notArchived;
     }
     

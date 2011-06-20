@@ -24,14 +24,14 @@ class LogManager implements LogManagerInterface
     protected $years;
     protected $factory;
     
-    public function __construct($directory, $prefix, $format)
+    public function __construct($directory, $prefix, $format, $number = 400)
     {
         $this->directory = $directory;
         $this->prefix = $prefix;
         $this->format = $format;
         
         $this->years = array();
-        $this->factory = new LogFactory($prefix);
+        $this->factory = new LogFactory($prefix, $number);
     }
     
     public function retrieveFiles($force = false)

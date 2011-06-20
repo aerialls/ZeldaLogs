@@ -14,9 +14,10 @@ namespace ZeldaLogs;
 class LogFactory
 {
     protected $prefix;
+    protected $number;
     protected $formatter;
     
-    public function __construct($prefix)
+    public function __construct($prefix, $number)
     {
         $this->prefix = $prefix;
         
@@ -31,6 +32,6 @@ class LogFactory
     {
         $date = new \DateTime(substr($file->getFilename(), strlen($this->prefix)));
         
-        return new Log($this->formatter, $date, $file);
+        return new Log($this->formatter, $date, $file, $this->number);
     }
 }
