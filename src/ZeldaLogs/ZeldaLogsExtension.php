@@ -13,6 +13,10 @@ namespace ZeldaLogs;
 
 use Silex\ExtensionInterface;
 use Silex\Application;
+use Silex\SilexEvents;
+
+use ZeldaLogs\Formatter\mIRCFormatter;
+use ZeldaLogs\Twig\FormatterExtension;
 
 class ZeldaLogsExtension implements ExtensionInterface
 {
@@ -25,6 +29,12 @@ class ZeldaLogsExtension implements ExtensionInterface
                     $app['zeldalogs.date.format'],
                     $app['zeldalogs.number.of.lines']
             );
+        });
+        
+        $app['dispatcher']->addListener(SilexEvents::BEFORE, function() use($app) {
+            $formatter = new mIRCFormatter();
+            
+            $app['twig']->addExtension(new FormatterExtension($formatter));
         });
     }
 }
