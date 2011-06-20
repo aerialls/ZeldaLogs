@@ -37,7 +37,7 @@ class LogManager implements LogManagerInterface
     public function retrieveFiles($force = false)
     {
         if ($this->years && !$force) {
-            return;
+            return $this;
         }
         
         $finder = Finder::create();
@@ -50,12 +50,13 @@ class LogManager implements LogManagerInterface
             $log = $this->factory->create($file);
             $this->addLog($log);
         }
+        
+        return $this;
     }
     
     public function retrieveByDate(\DateTime $date)
     {
         $format = $date->format($this->format);
-        
         $finder = Finder::create();
         
         $iterator = $finder->name($this->prefix . $format)
@@ -69,9 +70,7 @@ class LogManager implements LogManagerInterface
     }
     
     public function retrieveByYear($year)
-    {
-        $this->retrieveFiles();
-        
+    {   
         if (false === array_key_exists($year, $this->years)) {
             return null;
         }
@@ -92,6 +91,10 @@ class LogManager implements LogManagerInterface
     
     public function getYears()
     {
+        if (!$this->years) {
+            throw new \BadFunctionCallException('You need to call LogManager::retrieveFiles first.');
+        }
+        
         return $this->years;
     }
 }

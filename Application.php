@@ -37,7 +37,9 @@ $app->register(new ZeldaLogs\ZeldaLogsExtension(), array(
 
 $app->get('/logs/{year}', function($year) use ($app) {
     $name = $year;
-    $year = $app['log.manager']->retrieveByYear($year);
+    $year = $app['log.manager']->retrieveFiles()
+                               ->retrieveByYear($year);
+    
     $years = $app['log.manager']->getYears();
 
     return $app['twig']->render('year.html.twig', array(
