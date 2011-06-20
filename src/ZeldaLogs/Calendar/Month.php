@@ -13,7 +13,7 @@ namespace ZeldaLogs\Calendar;
 
 use ZeldaLogs\Log;
 
-class Month
+class Month implements CalendarInterface
 {
     protected $year;
     protected $month;
