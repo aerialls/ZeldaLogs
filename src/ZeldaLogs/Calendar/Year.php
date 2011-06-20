@@ -53,4 +53,9 @@ class Year implements CalendarInterface
     {
         return $this->year;
     }
+    
+    public function getUrl()
+    {
+        return '/' . $this->year;
+    }
 }

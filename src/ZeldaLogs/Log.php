@@ -61,10 +61,15 @@ class Log
         }
         
         $start = ($page - 1) * $this->number;
-        $end = $page + $this->number;
+        $end = $page * $this->number;
+        $count = count($content);
+        
+        if ($end > $count) {
+            $end = $count;
+        }
         
         $tmp = array();
-        for ($i = $start ; $i <= $end ; $i++) {
+        for ($i = $start ; $i < $end ; $i++) {
             $tmp[] = utf8_encode($content[$i]);
         }
         
@@ -79,7 +84,7 @@ class Log
             throw new \BadFunctionCallException('You need to call "Log::load" first.');
         }
         
-        return ceil(count($this->content), $this->number);
+        return ceil(count($this->content) / $this->number);
     }
     
     public function getDate()
@@ -90,5 +95,20 @@ class Log
     public function getFile()
     {
         return $this->file;
+    }
+    
+    public function getUrl($page = null)
+    {
+        $url = '/' . implode('/', array(
+            $this->date->format('Y'),
+            $this->date->format('n'),
+            $this->date->format('j')
+        ));
+        
+        if (null !== $page) {
+            $url .= '/' . $page;
+        }
+        
+        return $url;
     }
 }

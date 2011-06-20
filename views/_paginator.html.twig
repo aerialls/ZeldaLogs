@@ -1,0 +1,10 @@
+<div class="paginator">
+    {% set max = day.getNumberOfPages %}
+    {% for i in 1..max %}
+        {% if i == page %}
+            <span class="current">{{ i }}</span>
+        {% else %}
+            <a href="{{ day.getUrl(i) }}">{{ i }}</a>
+        {% endif %}
+    {% endfor %}
+</div>

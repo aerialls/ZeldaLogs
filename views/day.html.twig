@@ -4,8 +4,10 @@
 
 {% block content %}
     <h1>Archives du {{ day.getFormattedDate }}</h1>
+    
+    {% include '_paginator.html.twig' %}
 
-    {% set logs = day.getPage(1) %}
+    {% set logs = day.getPage(page) %}
 
     {% for line in logs %}
         <div class="line">
@@ -14,4 +16,6 @@
     {% else %}
         Rien à afficher pour le moment pour cette journée ...
     {% endfor %}
+        
+    {% include '_paginator.html.twig' %}
 {% endblock %}

@@ -5,16 +5,16 @@
 {% block content %}
     <h1>Liste des archives pour l'année {{ year }}</h1>
     
-    <div id="years">
+    <div class="paginator">
         {% for tmp in years %}
             {% if tmp == logs %}
-                {{ tmp.getName }}
+                <span class="current">{{ tmp.getName }}</span>
             {% else %}
-                <a href="/{{ tmp.getName }}">{{tmp.getName }}</a>
+                <a href="{{ tmp.getUrl }}">{{ tmp.getName }}</a>
             {% endif %}
         {% endfor %}
     </div>
-    
+
     {% if not logs %}
         <div class="error">
             Aucune archive disponible pour cette année
@@ -35,9 +35,9 @@
                             {% set day = month.getDay(j) %}
 
                             {% if day %}
-                                <a href="/{{ year }}/{{ i }}/{{ j }}" class="active">{{ j }}</a>
+                                <a href="{{ day.getUrl }}" class="active">{{ j }}</a>
                             {% else %}
-                                <a href="#">{{ j }}</a>
+                                <span>{{ j }}</span>
                             {% endif %}
                         {% endfor %}
                     </div>

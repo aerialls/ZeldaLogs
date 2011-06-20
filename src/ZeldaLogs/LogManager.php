@@ -93,7 +93,7 @@ class LogManager implements LogManagerInterface
     {
         if (true === $sorted) {
             usort($this->years, function ($a, $b) {
-                return $a->getName() - $b->getName();
+                return $b->getName() - $a->getName();
             });
         }
         

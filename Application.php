@@ -50,7 +50,7 @@ $app->get('/{year}', function($year) use ($app) {
     ));
 })->value('year', date('Y'));
 
-$app->get('/{year}/{month}/{day}', function($year, $month, $day) use ($app) {
+$app->get('/{year}/{month}/{day}/{page}', function($year, $month, $day, $page) use ($app) {
     $notArchived = new NotFoundHttpException('This days is not archived.');
     
     try {
@@ -68,7 +68,7 @@ $app->get('/{year}/{month}/{day}', function($year, $month, $day) use ($app) {
     
     $day->load();
 
-    return $app['twig']->render('day.html.twig', array('day' => $day));
-}); 
+    return $app['twig']->render('day.html.twig', array('day' => $day, 'page' => $page));
+})->value('page', 1);
 
 return $app;
