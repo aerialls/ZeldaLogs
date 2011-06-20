@@ -29,7 +29,7 @@ class FormatterExtension extends \Twig_Extension
         );
     }
 
-    public function markdown($text)
+    public function format($text)
     {
         return $this->formatter->format($text);
     }
