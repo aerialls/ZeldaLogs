@@ -11,7 +11,7 @@
 
     {% for line in logs %}
         <div class="line">
-            {{- line | mirc_raw_parse -}}
+            {{- line | mirc_parse -}}
         </div>
     {% else %}
         Rien à afficher pour le moment pour cette journée ...
