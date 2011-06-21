@@ -70,7 +70,6 @@ $app->get('/{year}/{month}/{day}/{page}', function($year, $month, $day, $page) u
         throw $notFound;
     }
 
-    $day->load();
     $body = $app['twig']->render('day.html.twig', array('day' => $day, 'page' => $page));
 
     return new Response($body, 200, array('Cache-Control' => 's-maxage=3600'));

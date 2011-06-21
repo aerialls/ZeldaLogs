@@ -14,54 +14,27 @@ namespace ZeldaLogs;
 class Log
 {
     protected $date;
-    protected $file;
     protected $number;
-    protected $dateFormatter;
-    protected $content;
+    protected $formatter;
+    protected $file;
 
-    public function __construct(\IntlDateFormatter $dateFormatter, \DateTime $date, \SplFileInfo $file, $number = 400)
+    public function __construct(\IntlDateFormatter $formatter, \DateTime $date, \SplFileInfo $info, $number = 400)
     {
-        $this->date = $date;
-        $this->file = $file;
-        $this->dateFormatter = $dateFormatter;
-
         if (false === is_numeric($number)) {
             throw new \InvalidArgumentException('$number must be a number.');
         }
 
+        $this->date = $date;
+        $this->formatter = $formatter;
         $this->number = $number;
+
+        $this->file = new File($info->getPathname());
+        $this->file->setFlags(File::DROP_NEW_LINE | File::SKIP_EMPTY);
     }
 
     public function getFormattedDate()
     {
-        return $this->dateFormatter->format($this->date);
-    }
-
-    public function load($force = false)
-    {
-        if (false === $force && $this->content) {
-            return $this;
-        }
-
-        $this->content = file($this->file->getPathname(), FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-
-        return $this;
-    }
-
-    public function search($search)
-    {
-        if (null === $this->content) {
-            throw new \BadFunctionCallException('You need to call "Log::load" first.');
-        }
-
-        $tmp = array();
-        foreach ($this->content as $line) {
-            if (false !== strpos($search, $line)) {
-                $tmp[] = $line;
-            }
-        }
-
-        return $tmp;
+        return $this->formatter->format($this->date);
     }
 
     public function getPage($page)
@@ -70,21 +43,16 @@ class Log
             throw new \InvalidArgumentException('The page must be a positive integer');
         }
 
-        if (null === $this->content) {
-            throw new \BadFunctionCallException('You need to call "Log::load" first.');
-        }
-
         $start = ($page - 1) * $this->number;
         $end = $page * $this->number;
-        $count = count($this->content);
 
-        if ($end > $count) {
-            $end = $count;
-        }
+        $this->file->seek($start);
 
         $tmp = array();
-        for ($i = $start ; $i < $end ; $i++) {
-            $tmp[] = utf8_encode($this->content[$i]);
+        $full = false;
+
+        while ($start < $end && false === $this->file->eof()) {
+            $tmp[$start++] = $this->file->fgets();
         }
 
         return $tmp;
@@ -92,21 +60,7 @@ class Log
 
     public function getNumberOfPages()
     {
-        if (null === $this->content) {
-            throw new \BadFunctionCallException('You need to call "Log::load" first.');
-        }
-
-        return ceil(count($this->content) / $this->number);
-    }
-
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    public function getFile()
-    {
-        return $this->file;
+        return ceil(count($this->file) / $this->number);
     }
 
     public function getUrl($page = null)
@@ -122,5 +76,15 @@ class Log
         }
 
         return $url;
+    }
+
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    public function getFile()
+    {
+        return $this->file;
     }
 }
