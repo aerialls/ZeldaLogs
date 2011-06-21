@@ -12,6 +12,7 @@
 require_once __DIR__.'/vendor/Silex/silex.phar';
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\Response;
 
 $app = new Silex\Application();
 
@@ -34,7 +35,7 @@ $app->register(new ZeldaLogs\ZeldaLogsExtension(), array(
     'zeldalogs.prefix'          => 'zelda.log.',
     'zeldalogs.date.format'     => 'dMY',
     'zeldalogs.directory'       => __DIR__.'/logs',
-    'zeldalogs.number.of.lines' => 400
+    'zeldalogs.number.of.lines' => 300
 ));
 
 $app->get('/{year}', function($year) use ($app) {
@@ -43,32 +44,37 @@ $app->get('/{year}', function($year) use ($app) {
     
     $years = $app['log.manager']->getYears(true);
 
-    return $app['twig']->render('year.html.twig', array(
+    $body = $app['twig']->render('year.html.twig', array(
         'year' => $year,
         'years' => $years,
         'logs' => $logs,
     ));
-})->value('year', date('Y'));
+    
+    return new Response($body, 200, array('Cache-Control' => 's-maxage=3600'));
+})->value('year', date('Y'))
+  ->bind('view_year');
 
 $app->get('/{year}/{month}/{day}/{page}', function($year, $month, $day, $page) use ($app) {
-    $notArchived = new NotFoundHttpException('This days is not archived.');
+    $notFound = new NotFoundHttpException('This days is not archived.');
     
     try {
         $date = new \DateTime(implode('-', array($year, $month, $day)));
     } 
-    catch(Exception $e) {
-        throw $notArchived;
+    catch(\Exception $e) {
+        throw $notFound;
     }
     
     $day = $app['log.manager']->retrieveByDate($date);
     
     if (null === $day) {
-        throw $notArchived;
+        throw $notFound;
     }
     
     $day->load();
-
-    return $app['twig']->render('day.html.twig', array('day' => $day, 'page' => $page));
-})->value('page', 1);
+    $body = $app['twig']->render('day.html.twig', array('day' => $day, 'page' => $page));
+    
+    return new Response($body, 200, array('Cache-Control' => 's-maxage=3600'));
+})->value('page', 1)
+  ->bind('view_day');
 
 return $app;
