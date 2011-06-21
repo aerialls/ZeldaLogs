@@ -36,6 +36,16 @@ class Month implements CalendarInterface
         $this->days[$number] = $day;
     }
 
+    public function search($search)
+    {
+        $tmp = array();
+        foreach ($this->days as $day) {
+            $tmp = array_merge($tmp, $day->search($search));
+        }
+
+        return $tmp;
+    }
+
     public function getName()
     {
         return $this->date->format('F');

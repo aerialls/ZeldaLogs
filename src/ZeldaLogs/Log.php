@@ -48,6 +48,22 @@ class Log
         return $this;
     }
 
+    public function search($search)
+    {
+        if (null === $this->content) {
+            throw new \BadFunctionCallException('You need to call "Log::load" first.');
+        }
+
+        $tmp = array();
+        foreach ($this->content as $line) {
+            if (false !== strpos($search, $line)) {
+                $tmp[] = $line;
+            }
+        }
+
+        return $tmp;
+    }
+
     public function getPage($page)
     {
         if ($page <= 0) {
