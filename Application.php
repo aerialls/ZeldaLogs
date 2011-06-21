@@ -51,8 +51,7 @@ $app->get('/{year}', function($year) use ($app) {
     ));
 
     return new Response($body, 200, array('Cache-Control' => 's-maxage=3600'));
-})->value('year', date('Y'))
-  ->bind('view_year');
+})->value('year', date('Y'));
 
 $app->get('/{year}/{month}/{day}/{page}', function($year, $month, $day, $page) use ($app) {
     $notFound = new NotFoundHttpException('This days is not archived.');
@@ -74,7 +73,10 @@ $app->get('/{year}/{month}/{day}/{page}', function($year, $month, $day, $page) u
     $body = $app['twig']->render('day.html.twig', array('day' => $day, 'page' => $page));
 
     return new Response($body, 200, array('Cache-Control' => 's-maxage=3600'));
-})->value('page', 1)
-  ->bind('view_day');
+})->value('page', 1);
+
+$app->error(function (\Exception $e) use ($app) {
+    return $app['twig']->render('error.html.twig', array('e' => $e));
+});
 
 return $app;

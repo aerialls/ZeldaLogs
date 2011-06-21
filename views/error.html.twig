@@ -1,0 +1,9 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Oops !{% endblock %}
+
+{% block content %}
+    <h1>Oops ! Une erreur est survenue</h1>
+
+    {{ e.getMessage }}
+{% endblock %}
