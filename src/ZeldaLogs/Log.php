@@ -49,8 +49,6 @@ class Log
         $this->file->seek($start);
 
         $tmp = array();
-        $full = false;
-
         while ($start < $end && false === $this->file->eof()) {
             $tmp[$start++] = $this->file->fgets();
         }
