@@ -41,7 +41,7 @@ $app->register(new ZeldaLogs\ZeldaLogsExtension(), array(
 $app->get('/{year}', function($year) use ($app) {
     $logs = $app['log.manager']->retrieveFiles()
                                ->retrieveByYear($year);
-    
+
     $years = $app['log.manager']->getYears(true);
 
     $body = $app['twig']->render('year.html.twig', array(
@@ -49,30 +49,30 @@ $app->get('/{year}', function($year) use ($app) {
         'years' => $years,
         'logs' => $logs,
     ));
-    
+
     return new Response($body, 200, array('Cache-Control' => 's-maxage=3600'));
 })->value('year', date('Y'))
   ->bind('view_year');
 
 $app->get('/{year}/{month}/{day}/{page}', function($year, $month, $day, $page) use ($app) {
     $notFound = new NotFoundHttpException('This days is not archived.');
-    
+
     try {
         $date = new \DateTime(implode('-', array($year, $month, $day)));
-    } 
+    }
     catch(\Exception $e) {
         throw $notFound;
     }
-    
+
     $day = $app['log.manager']->retrieveByDate($date);
-    
+
     if (null === $day) {
         throw $notFound;
     }
-    
+
     $day->load();
     $body = $app['twig']->render('day.html.twig', array('day' => $day, 'page' => $page));
-    
+
     return new Response($body, 200, array('Cache-Control' => 's-maxage=3600'));
 })->value('page', 1)
   ->bind('view_day');

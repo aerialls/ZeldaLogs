@@ -19,39 +19,39 @@ class Month implements CalendarInterface
     protected $month;
     protected $days;
     protected $date;
-    
+
     public function __construct($month, $year)
     {
         $this->month = $month;
         $this->year = $year;
-        
+
         $this->days = array();
         $this->date = new \DateTime(implode('-', array($year, $month, 1)));
     }
-    
+
     public function addLog(Log $day)
     {
         $number = (int)$day->getDate()->format('j');
-        
+
         $this->days[$number] = $day;
     }
-    
+
     public function getName()
     {
         return $this->date->format('F');
     }
-    
+
     public function getNumberOfDays()
     {
         return $this->date->format('t');
     }
-    
+
     public function getDay($day)
     {
         if (false === array_key_exists($day, $this->days)) {
             return null;
         }
-        
+
         return $this->days[$day];
     }
 }

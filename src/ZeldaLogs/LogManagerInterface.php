@@ -14,6 +14,6 @@ namespace ZeldaLogs;
 interface LogManagerInterface
 {
     public function retrieveByDate(\DateTime $date);
-    
+
     public function retrieveByYear($year);
 }

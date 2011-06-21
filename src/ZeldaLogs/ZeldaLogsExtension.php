@@ -23,14 +23,14 @@ class ZeldaLogsExtension implements ExtensionInterface
     {
         $app['log.manager'] = $app->share(function () use ($app) {
             return new LogManager(
-                    $app['zeldalogs.directory'], 
-                    $app['zeldalogs.prefix'], 
+                    $app['zeldalogs.directory'],
+                    $app['zeldalogs.prefix'],
                     $app['zeldalogs.date.format'],
                     $app['zeldalogs.number.of.lines']
             );
         });
-        
-        $app['dispatcher']->addListener(SilexEvents::BEFORE, function() use($app) {            
+
+        $app['dispatcher']->addListener(SilexEvents::BEFORE, function() use($app) {
             $app['twig']->addExtension(new mIRCParserExtension());
         });
     }

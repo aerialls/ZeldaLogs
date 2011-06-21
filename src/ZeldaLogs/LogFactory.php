@@ -16,23 +16,23 @@ class LogFactory
     protected $prefix;
     protected $number;
     protected $formatter;
-    
+
     public function __construct($prefix, $number)
     {
         $this->prefix = $prefix;
         $this->number = $number;
-        
+
         $this->formatter = new \IntlDateFormatter(
-            \Locale::getDefault(),
+            'fr_FR',
             \IntlDateFormatter::LONG,
             \IntlDateFormatter::NONE
         );
     }
-    
+
     public function create(\SplFileInfo $file)
     {
         $date = new \DateTime(substr($file->getFilename(), strlen($this->prefix)));
-        
+
         return new Log($this->formatter, $date, $file, $this->number);
     }
 }

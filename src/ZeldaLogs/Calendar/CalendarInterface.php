@@ -16,6 +16,6 @@ use ZeldaLogs\Log;
 interface CalendarInterface
 {
     public function addLog(Log $day);
-    
+
     public function getName();
 }
