@@ -31,7 +31,7 @@ $app->register(new Silex\Extension\TwigExtension(), array(
     'twig.class_path' => __DIR__.'/vendor/Twig/lib',
 ));
 
-$app->register(new ZeldaLogs\ZeldaLogsExtension(), array(
+$app->register(new ZeldaLogs\Extension\ZeldaLogsExtension(), array(
     'zeldalogs.prefix'          => 'zelda.log.',
     'zeldalogs.date.format'     => 'dMY',
     'zeldalogs.directory'       => __DIR__.'/logs',
