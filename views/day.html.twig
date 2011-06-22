@@ -3,6 +3,15 @@
 {% block title %}Archives du {{ day.getFormattedDate }}{% endblock %}
 
 {% block content %}
+
+    <div id="form_search">
+        <form method="post" action="/search">
+            <input type="text" id="search" name="search" />
+            <input type="hidden" name="where" value="{{ day.getSerializedDate }}" />
+            <a class="medium awesome">Rechercher</a>
+        </form>
+    </div>
+
     <h1>Archives du {{ day.getFormattedDate }}</h1>
 
     {% include '_paginator.html.twig' %}
@@ -11,7 +20,7 @@
 
     {% for line in logs %}
         <div class="line">
-            {{- line | mirc_parse -}}
+            {{- line | mirc_raw_parse -}}
         </div>
     {% else %}
         Rien à afficher pour le moment pour cette journée ...

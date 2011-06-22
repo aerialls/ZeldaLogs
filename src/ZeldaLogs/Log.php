@@ -21,7 +21,7 @@ class Log
     public function __construct(\IntlDateFormatter $formatter, \DateTime $date, \SplFileInfo $info, $number = 400)
     {
         if (false === is_numeric($number)) {
-            throw new \InvalidArgumentException('$number must be a number.');
+            throw new \InvalidArgumentException('Le nombre de ligne par page doit être un entier positif.');
         }
 
         $this->date = $date;
@@ -37,10 +37,28 @@ class Log
         return $this->formatter->format($this->date);
     }
 
+    public function search($search)
+    {
+        if (!$search) {
+            throw new \InvalidArgumentException('Vous devez indiquer un mot à rechercher.');
+        }
+
+        $search = utf8_decode($search);
+        $tmp = array();
+
+        foreach ($this->file as $line) {
+            if (false !== strpos($line, $search)) {
+                $tmp[] = $line;
+            }
+        }
+
+        return $tmp;
+    }
+
     public function getPage($page)
     {
         if ($page <= 0) {
-            throw new \InvalidArgumentException('The page must be a positive integer');
+            throw new \InvalidArgumentException('Le numéro de page est doit être un entier positif.');
         }
 
         $start = ($page - 1) * $this->number;
@@ -79,6 +97,15 @@ class Log
     public function getDate()
     {
         return $this->date;
+    }
+
+    public function getSerializedDate()
+    {
+        return implode('-', array(
+            $this->date->format('Y'),
+            $this->date->format('n'),
+            $this->date->format('j')
+        ));
     }
 
     public function getFile()

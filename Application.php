@@ -55,7 +55,7 @@ $app->get('/{year}', function($year) use ($app) {
   ->assert('year', '\d{4}');
 
 $app->get('/{year}/{month}/{day}/{page}', function($year, $month, $day, $page) use ($app) {
-    $notFound = new NotFoundHttpException('This days is not archived.');
+    $notFound = new NotFoundHttpException('Ce jour n\'est pas archivé.');
 
     try {
         $date = new \DateTime(implode('-', array($year, $month, $day)));
@@ -78,6 +78,33 @@ $app->get('/{year}/{month}/{day}/{page}', function($year, $month, $day, $page) u
   ->assert('month', '\d{1,2}')
   ->assert('day', '\d{1,2}')
   ->assert('page', '\d+');
+
+$app->post('/search', function() use ($app) {
+    $request = $app['request'];
+
+    $search = $request->get('search');
+    $where = $request->get('where');
+
+    $date = $app['log.manager']->parseSerializedDate($where);
+
+    if (null === $date) {
+        throw new \LogicException('Impossible de récupérer correctement la date donnée.');
+    }
+
+    $day = $app['log.manager']->retrieveByDate($date);
+
+    if (null === $day) {
+        throw new NotFoundHttpException('Ce jour n\'est pas archivé.');
+    }
+
+    $lines = $day->search($search);
+
+    return $app['twig']->render('search.html.twig', array(
+        'day' => $day,
+        'search' => $search,
+        'lines' => $lines
+    ));
+});
 
 $app->error(function (\Exception $e) use ($app) {
     return $app['twig']->render('error.html.twig', array('e' => $e));

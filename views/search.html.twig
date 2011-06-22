@@ -1,0 +1,15 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Recherche{% endblock %}
+
+{% block content %}
+    <h1>Résultats de la recherche "{{ search }}"</h1>
+
+    {% for line in lines %}
+        <div class="line">
+            {{- line | mirc_raw_parse -}}
+        </div>
+    {% else %}
+        La recherche n'a retourné aucun résultat.
+    {% endfor %}
+{% endblock %}

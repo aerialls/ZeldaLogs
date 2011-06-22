@@ -1,12 +1,12 @@
-@font-face { 
-    font-family: Delicious; 
+@font-face {
+    font-family: Delicious;
     src: url('/fonts/Delicious-Roman.otf');
-} 
+}
 
-@font-face { 
-    font-family: Delicious; 
-    font-weight: bold; 
-    src: url('/fonts/Delicious-Bold.otf'); 
+@font-face {
+    font-family: Delicious;
+    font-weight: bold;
+    src: url('/fonts/Delicious-Bold.otf');
 }
 
 html {
@@ -147,3 +147,49 @@ strong {
     color: white;
     background-color: #426b7d;
 }
+
+#form_search {
+    float: right;
+    margin: 10px 10px 0 0;
+}
+
+#form_search input[type=text] {
+    width: 200px;
+    margin-right: 5px;
+}
+
+.awesome, .awesome:visited {
+    background: #222 url(/images/alert-overlay.png) repeat-x;
+    display: inline-block;
+    padding: 5px 10px 6px;
+    color: #fff;
+    text-decoration: none;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    font-family: Arial;
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+    border-bottom: 1px solid rgba(0,0,0,0.25);
+    position: relative;
+    top: -2px;
+    cursor: pointer;
+}
+
+.awesome:hover {
+    background-color: #111; color: #fff;
+}
+
+.awesome:active {
+    top: -1px;
+}
+
+.awesome, .awesome:visited,
+.medium.awesome, .medium.awesome:visited {
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 1;
+    text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+}
+
+

@@ -89,6 +89,20 @@ class LogManager implements LogManagerInterface
         $this->years[$year]->addLog($log);
     }
 
+    public function parseSerializedDate($date)
+    {
+        if (!$date) {
+            return null;
+        }
+
+        try {
+            return new \DateTime($date);
+        }
+        catch (\Exception $e) {
+            return null;
+        }
+    }
+
     public function getYears($sorted = false)
     {
         if (true === $sorted) {
