@@ -148,12 +148,12 @@ strong {
     background-color: #426b7d;
 }
 
-#form_search {
+#search_form {
     float: right;
     margin: 10px 10px 0 0;
 }
 
-#form_search input[type=text] {
+#search_form input[type=text] {
     width: 200px;
     margin-right: 5px;
 }

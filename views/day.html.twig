@@ -4,11 +4,11 @@
 
 {% block content %}
 
-    <div id="form_search">
-        <form method="post" action="/search">
+    <div id="search_box">
+        <form id="search_form" method="post" action="/search">
             <input type="text" id="search" name="search" />
             <input type="hidden" name="where" value="{{ day.getSerializedDate }}" />
-            <a class="medium awesome">Rechercher</a>
+            <a id="search_submit" class="medium awesome">Rechercher</a>
         </form>
     </div>
 

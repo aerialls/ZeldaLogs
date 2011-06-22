@@ -3,7 +3,7 @@
 {% block title %}Recherche{% endblock %}
 
 {% block content %}
-    <h1>Résultats de la recherche "{{ search }}"</h1>
+    <h1>Recherche de "{{ search }}" le {{ day.getFormattedDate }}</h1>
 
     {% for line in lines %}
         <div class="line">
