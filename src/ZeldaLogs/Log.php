@@ -47,11 +47,10 @@ class Log
             throw new \InvalidArgumentException('Vous devez indiquer un mot supérieur à deux caractères.');
         }
 
-        $search = utf8_decode($search);
         $tmp = array();
 
         foreach ($this->file as $line) {
-            if (false !== stripos($line, $search)) {
+            if (false !== mb_stripos($line, $search)) {
                 $tmp[] = $line;
             }
         }
@@ -70,9 +69,8 @@ class Log
 
         $this->file->seek($start);
 
-        $tmp = array();
-        while ($start < $end && false === $this->file->eof()) {
-            $tmp[$start++] = utf8_encode($this->file->fgets());
+        for ($tmp = array() ; $start < $end && true === $this->file->valid() ; $this->file->next()) {
+            $tmp[$start++] = utf8_encode($this->file->current());
         }
 
         return $tmp;
