@@ -47,7 +47,7 @@ class Log
         $tmp = array();
 
         foreach ($this->file as $line) {
-            if (false !== strpos($line, $search)) {
+            if (false !== stripos($line, $search)) {
                 $tmp[] = $line;
             }
         }
