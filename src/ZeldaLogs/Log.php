@@ -50,7 +50,7 @@ class Log
 
         $tmp = array();
         while ($start < $end && false === $this->file->eof()) {
-            $tmp[$start++] = $this->file->fgets();
+            $tmp[$start++] = utf8_encode($this->file->fgets());
         }
 
         return $tmp;
