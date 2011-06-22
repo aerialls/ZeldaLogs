@@ -43,6 +43,10 @@ class Log
             throw new \InvalidArgumentException('Vous devez indiquer un mot à rechercher.');
         }
 
+        if (strlen($search) < 3) {
+            throw new \InvalidArgumentException('Vous devez indiquer un mot supérieur à deux caractères.');
+        }
+
         $search = utf8_decode($search);
         $tmp = array();
 
