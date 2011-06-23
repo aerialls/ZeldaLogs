@@ -22,10 +22,6 @@ $app['autoloader']->registerNamespaces(array(
     'Symfony'   => __DIR__.'/vendor'
 ));
 
-$app->register(new Silex\Extension\HttpCacheExtension(), array(
-    'http_cache.cache_dir' => __DIR__.'/cache'
-));
-
 $app->register(new Silex\Extension\TwigExtension(), array(
     'twig.path'       => __DIR__.'/views',
     'twig.class_path' => __DIR__.'/vendor/Twig/lib',
@@ -44,13 +40,11 @@ $app->get('/{year}', function($year) use ($app) {
 
     $years = $app['log.manager']->getYears(true);
 
-    $body = $app['twig']->render('year.html.twig', array(
+    return $app['twig']->render('year.html.twig', array(
         'year' => $year,
         'years' => $years,
         'logs' => $logs,
     ));
-
-    return new Response($body, 200, array('Cache-Control' => 's-maxage=3600'));
 })->value('year', date('Y'))
   ->assert('year', '\d{4}');
 
@@ -70,9 +64,10 @@ $app->get('/{year}/{month}/{day}/{page}', function($year, $month, $day, $page) u
         throw $notFound;
     }
 
-    $body = $app['twig']->render('day.html.twig', array('day' => $day, 'page' => $page));
-
-    return new Response($body, 200, array('Cache-Control' => 's-maxage=3600'));
+    return $app['twig']->render('day.html.twig', array(
+        'day' => $day,
+        'page' => $page
+    ));
 })->value('page', 1)
   ->assert('year', '\d{4}')
   ->assert('month', '\d{1,2}')

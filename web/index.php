@@ -11,4 +11,4 @@
 
 $app = require_once __DIR__.'/../Application.php';
 
-$app['http_cache']->run();
+$app->run();
