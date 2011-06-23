@@ -48,8 +48,8 @@ class Log
         }
 
         $tmp = array();
-
         foreach ($this->file as $line) {
+            $line = utf8_encode($line);
             if (false !== mb_stripos($line, $search)) {
                 $tmp[] = $line;
             }
