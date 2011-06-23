@@ -1,6 +1,6 @@
  $(document).ready(function(){
     $("#search_submit").click(function() { 
-        if ($("#search").value() != '') {
+        if ($("#search").val() != '') {
             $("#search_form").submit(); 
         }
     });
