@@ -40,7 +40,7 @@ class LogManager implements LogManagerInterface
             return $this;
         }
 
-        $finder = Finder::create();
+        $finder = new Finder();
 
         $iterator = $finder->name($this->prefix . '*')
                            ->in($this->directory)
@@ -57,7 +57,7 @@ class LogManager implements LogManagerInterface
     public function retrieveByDate(\DateTime $date)
     {
         $format = $date->format($this->format);
-        $finder = Finder::create();
+        $finder = new Finder();
 
         $iterator = $finder->name($this->prefix . $format)
                            ->in($this->directory);
