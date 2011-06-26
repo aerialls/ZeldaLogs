@@ -4,7 +4,7 @@
         {% if i == page %}
             <span class="current">{{ i }}</span>
         {% else %}
-            <a href="{{ day.getUrl(i) }}">{{ i }}</a>
+            <a class="highlight" href="{{ day.getUrl(i) }}">{{ i }}</a>
         {% endif %}
     {% endfor %}
 </div>

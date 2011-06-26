@@ -10,7 +10,7 @@
             {% if tmp == logs %}
                 <span class="current">{{ tmp.getName }}</span>
             {% else %}
-                <a href="{{ tmp.getUrl }}">{{ tmp.getName }}</a>
+                <a class="highlight" href="{{ tmp.getUrl }}">{{ tmp.getName }}</a>
             {% endif %}
         {% endfor %}
     </div>
@@ -35,7 +35,7 @@
                             {% set day = month.getDay(j) %}
 
                             {% if day %}
-                                <a href="{{ day.getUrl }}" class="active">{{ j }}</a>
+                                <a href="{{ day.getUrl }}" class="active highlight">{{ j }}</a>
                             {% else %}
                                 <span>{{ j }}</span>
                             {% endif %}

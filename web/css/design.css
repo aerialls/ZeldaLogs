@@ -17,8 +17,8 @@ html {
 }
 
 body {
-    font: Georgia, "Times New Roman", serif;
-    font-size: 18px;
+    font-family: Verdana, Helvetica, sans-serif;
+    font-size: 13px;
     color: #626262;
 }
 
@@ -115,12 +115,18 @@ strong {
     text-decoration: none;
     font-weight: bold;
     text-align: center;
-    padding-top: 5px;
+    padding-top: 7px;
 }
 
-.calendar .days a.active {
+.highlight {
+    color: #999;
+    font-weight: bold;
+    background-color: #eee;
+}
+
+.highlight:hover {
+    color: white;
     background-color: #426b7d;
-    color: #fff;
 }
 
 .line {
@@ -135,16 +141,12 @@ strong {
 .paginator a, .paginator span.current {
     margin: 0 4px 0 0;
     padding: 5px 7px;
-    color: #999;
-    font-family: Arial;
-    font-size: 13px;
-    font-weight: bold;
-    background-color: #eee;
     text-decoration: none;
 }
 
-.paginator span.current, .paginator a:hover {
+.paginator span.current {
     color: white;
+    font-weight: bold;
     background-color: #426b7d;
 }
 
