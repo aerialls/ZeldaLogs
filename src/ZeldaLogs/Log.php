@@ -34,7 +34,9 @@ class Log
 
     public function getFormattedDate()
     {
-        return $this->formatter->format($this->date);
+        // IntlDateFormatter added support for DateTime
+        // objects only in PHP 5.3.4
+        return $this->formatter->format($this->date->getTimestamp());
     }
 
     public function search($search)
