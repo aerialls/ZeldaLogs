@@ -1,6 +1,7 @@
 {% extends 'layout.html.twig' %}
 
 {% block title %}Recherche{% endblock %}
+{% block year %}{{ day.getDate.format('Y') }}{% endblock %}
 
 {% block content %}
     <h1>Recherche de "{{ search }}" le {{ day.getFormattedDate }}</h1>

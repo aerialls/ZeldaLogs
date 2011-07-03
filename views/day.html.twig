@@ -1,6 +1,7 @@
 {% extends 'layout.html.twig' %}
 
 {% block title %}Archives du {{ day.getFormattedDate }}{% endblock %}
+{% block year %}{{ day.getDate.format('Y') }}{% endblock %}
 
 {% block content %}
 
