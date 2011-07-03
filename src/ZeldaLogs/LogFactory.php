@@ -23,7 +23,7 @@ class LogFactory
         $this->number = $number;
 
         $this->formatter = new \IntlDateFormatter(
-            'fr_FR',
+            \Locale::getDefault(),
             \IntlDateFormatter::LONG,
             \IntlDateFormatter::NONE
         );
