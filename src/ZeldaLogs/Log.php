@@ -87,8 +87,8 @@ class Log
     {
         $url = '/' . implode('/', array(
             $this->date->format('Y'),
-            $this->date->format('n'),
-            $this->date->format('j')
+            $this->date->format('m'),
+            $this->date->format('d')
         ));
 
         if (null !== $page) {
@@ -107,8 +107,8 @@ class Log
     {
         return implode('-', array(
             $this->date->format('Y'),
-            $this->date->format('n'),
-            $this->date->format('j')
+            $this->date->format('m'),
+            $this->date->format('d')
         ));
     }
 

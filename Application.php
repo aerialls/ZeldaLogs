@@ -70,8 +70,8 @@ $app->get('/{year}/{month}/{day}/{page}', function($year, $month, $day, $page) u
     ));
 })->value('page', 1)
   ->assert('year', '\d{4}')
-  ->assert('month', '\d{1,2}')
-  ->assert('day', '\d{1,2}')
+  ->assert('month', '\d{2}')
+  ->assert('day', '\d{2}')
   ->assert('page', '\d+');
 
 $app->post('/search', function() use ($app) {
