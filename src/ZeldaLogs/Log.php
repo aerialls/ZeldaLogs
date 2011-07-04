@@ -85,11 +85,7 @@ class Log
 
     public function getUrl($page = null)
     {
-        $url = '/' . implode('/', array(
-            $this->date->format('Y'),
-            $this->date->format('m'),
-            $this->date->format('d')
-        ));
+        $url = '/' . $this->date->format('Y/m/d');
 
         if (null !== $page) {
             $url .= '/' . $page;
@@ -105,11 +101,7 @@ class Log
 
     public function getSerializedDate()
     {
-        return implode('-', array(
-            $this->date->format('Y'),
-            $this->date->format('m'),
-            $this->date->format('d')
-        ));
+        return $this->date->format('Y-m-d');
     }
 
     public function getFile()
