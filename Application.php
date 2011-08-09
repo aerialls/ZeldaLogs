@@ -14,7 +14,9 @@ require_once __DIR__.'/vendor/Silex/silex.phar';
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Response;
 
-$app = new Silex\Application();
+use Silex\Application;
+
+$app = new Application();
 
 $app['autoloader']->registerNamespaces(array(
     'ZeldaLogs' => __DIR__.'/src',
@@ -34,7 +36,7 @@ $app->register(new ZeldaLogs\Extension\ZeldaLogsExtension(), array(
     'zeldalogs.number.of.lines' => 300
 ));
 
-$app->get('/{year}', function($year) use ($app) {
+$app->get('/{year}', function(Application $app, $year) {
     $logs = $app['log.manager']->retrieveFiles()
                                ->retrieveByYear($year);
 
@@ -48,7 +50,7 @@ $app->get('/{year}', function($year) use ($app) {
 })->value('year', date('Y'))
   ->assert('year', '\d{4}');
 
-$app->get('/{year}/{month}/{day}/{page}', function($year, $month, $day, $page) use ($app) {
+$app->get('/{year}/{month}/{day}/{page}', function(Application $app, $year, $month, $day, $page) {
     $notFound = new NotFoundHttpException('Ce jour n\'est pas archivé.');
 
     try {
@@ -74,7 +76,7 @@ $app->get('/{year}/{month}/{day}/{page}', function($year, $month, $day, $page) u
   ->assert('day', '\d{2}')
   ->assert('page', '\d+');
 
-$app->post('/search', function() use ($app) {
+$app->post('/search', function(Application $app) {
     $request = $app['request'];
 
     $search = $request->get('search');
