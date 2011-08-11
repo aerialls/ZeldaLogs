@@ -9,32 +9,12 @@
  * file that was distributed with this source code.
  */
 
-require_once __DIR__.'/vendor/Silex/silex.phar';
-
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpFoundation\Response;
+require 'bootstrap.php';
 
 use Silex\Application;
 
-$app = new Application();
-
-$app['autoloader']->registerNamespaces(array(
-    'ZeldaLogs' => __DIR__.'/src',
-    'Madalynn'  => __DIR__.'/vendor',
-    'Symfony'   => __DIR__.'/vendor'
-));
-
-$app->register(new Silex\Extension\TwigExtension(), array(
-    'twig.path'       => __DIR__.'/views',
-    'twig.class_path' => __DIR__.'/vendor/Twig/lib',
-));
-
-$app->register(new ZeldaLogs\Extension\ZeldaLogsExtension(), array(
-    'zeldalogs.prefix'          => 'zelda.log.',
-    'zeldalogs.date.format'     => 'dMY',
-    'zeldalogs.directory'       => __DIR__.'/logs',
-    'zeldalogs.number.of.lines' => 300
-));
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\Response;
 
 $app->get('/{year}', function(Application $app, $year) {
     $logs = $app['log.manager']->retrieveFiles()
