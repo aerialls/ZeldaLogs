@@ -9,16 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace ZeldaLogs\Extension;
+namespace ZeldaLogs\Provider;
 
-use Silex\ExtensionInterface;
+use Silex\ServiceProviderInterface;
 use Silex\Application;
 use Silex\SilexEvents;
 
 use Madalynn\mIRCParserExtension\mIRCParserExtension;
 use ZeldaLogs\LogManager;
 
-class ZeldaLogsExtension implements ExtensionInterface
+class ZeldaLogsServiceProvider implements ServiceProviderInterface
 {
     public function register(Application $app)
     {

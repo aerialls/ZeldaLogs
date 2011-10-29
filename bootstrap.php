@@ -19,12 +19,12 @@ $app['autoloader']->registerNamespaces(array(
     'Symfony'   => __DIR__.'/vendor'
 ));
 
-$app->register(new Silex\Extension\TwigExtension(), array(
+$app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path'       => __DIR__.'/views',
     'twig.class_path' => __DIR__.'/vendor/Twig/lib',
 ));
 
-$app->register(new ZeldaLogs\Extension\ZeldaLogsExtension(), array(
+$app->register(new ZeldaLogs\Provider\ZeldaLogsServiceProvider(), array(
     'zeldalogs.prefix'          => 'zelda.log.',
     'zeldalogs.date.format'     => 'dMY',
     'zeldalogs.directory'       => __DIR__.'/logs',
