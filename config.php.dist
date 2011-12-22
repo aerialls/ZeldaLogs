@@ -10,7 +10,8 @@
  */
 
 $config = array(
-    'zeldalogs.directory' => __DIR__.'/logs'
+    'zeldalogs.directory'      => __DIR__.'/logs',
+    'zeldalogs.security.mails' => array()
 );
 
 $app['debug'] = false;

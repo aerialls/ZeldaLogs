@@ -13,3 +13,6 @@
 [submodule "vendor/plum-service-provider"]
 	path = vendor/plum-service-provider
 	url = https://github.com/aerialls/SilexPlumServiceProvider.git
+[submodule "vendor/lightopenid"]
+	path = vendor/lightopenid
+	url = git://gitorious.org/lightopenid/lightopenid.git

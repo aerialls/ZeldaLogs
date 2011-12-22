@@ -57,6 +57,12 @@ strong {
     top: 15px;
 }
 
+#logout {
+    position: absolute;
+    right: 300px;
+    top: 150px;
+}
+
 #text {
     text-align: right;
     color: #426b7d;

@@ -28,7 +28,8 @@ $app->get('/{year}', function(Application $app, $year) {
         'logs' => $logs,
     ));
 })->value('year', date('Y'))
-  ->assert('year', '\d{4}');
+  ->assert('year', '\d{4}')
+  ->bind('homepage');
 
 $app->get('/{year}/{month}/{day}/{page}', function(Application $app, $year, $month, $day, $page) {
     $notFound = new NotFoundHttpException('Ce jour n\'est pas archivé.');
@@ -86,5 +87,11 @@ $app->post('/search', function(Application $app) {
 $app->error(function (\Exception $e) use ($app) {
     return $app['twig']->render('error.html.twig', array('e' => $e));
 });
+
+$app->get('/logout', function(Application $app) {
+    $app['session']->remove('username');
+
+    return $app->redirect($app['url_generator']->generate('homepage'));
+})->bind('logout');
 
 return $app;

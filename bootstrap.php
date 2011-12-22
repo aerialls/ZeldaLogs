@@ -11,6 +11,9 @@
 
 require_once __DIR__.'/vendor/silex.phar';
 
+// LightOpenID
+require_once __DIR__.'/vendor/lightopenid/openid.php';
+
 $app = new Silex\Application();
 
 if (!file_exists(__DIR__.'/config.php')) {
@@ -28,6 +31,9 @@ $app['autoloader']->registerNamespaces(array(
     'Plum'          => __DIR__.'/vendor/plum/src'
 ));
 
+$app->register(new Silex\Provider\SessionServiceProvider());
+$app->register(new Silex\Provider\UrlGeneratorServiceProvider());
+
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path'       => __DIR__.'/views',
     'twig.class_path' => __DIR__.'/vendor/twig/lib',
@@ -38,6 +44,10 @@ $app->register(new ZeldaLogs\Silex\Provider\ZeldaLogsServiceProvider(), array(
     'zeldalogs.date.format'     => 'dMY',
     'zeldalogs.directory'       => $config['zeldalogs.directory'],
     'zeldalogs.number.of.lines' => 300
+));
+
+$app->register(new ZeldaLogs\Silex\Provider\SecurityServiceProvider(), array(
+    'zeldalogs.security.mails' => $config['zeldalogs.security.mails']
 ));
 
 $app->register(new Plum\Silex\Provider\PlumServiceProvider(), array(
