@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ZeldaLogs\Provider;
+namespace ZeldaLogs\Silex\Provider;
 
 use Silex\ServiceProviderInterface;
 use Silex\Application;
