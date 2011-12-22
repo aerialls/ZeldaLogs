@@ -7,3 +7,9 @@
 [submodule "vendor/twig"]
 	path = vendor/twig
 	url = https://github.com/fabpot/Twig.git
+[submodule "vendor/plum"]
+	path = vendor/plum
+	url = https://github.com/aerialls/Plum.git
+[submodule "vendor/plum-service-provider"]
+	path = vendor/plum-service-provider
+	url = https://github.com/aerialls/SilexPlumServiceProvider.git
