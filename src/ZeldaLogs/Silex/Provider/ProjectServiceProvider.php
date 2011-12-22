@@ -18,7 +18,7 @@ use Silex\SilexEvents;
 use Madalynn\Twig\IRCParserExtension\IRCParserExtension;
 use ZeldaLogs\LogManager;
 
-class ZeldaLogsServiceProvider implements ServiceProviderInterface
+class ProjectServiceProvider implements ServiceProviderInterface
 {
     public function register(Application $app)
     {

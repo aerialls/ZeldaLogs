@@ -39,7 +39,7 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.class_path' => __DIR__.'/vendor/twig/lib',
 ));
 
-$app->register(new ZeldaLogs\Silex\Provider\ZeldaLogsServiceProvider(), array(
+$app->register(new ZeldaLogs\Silex\Provider\ProjectServiceProvider(), array(
     'zeldalogs.prefix'          => 'zelda.log.',
     'zeldalogs.date.format'     => 'dMY',
     'zeldalogs.directory'       => $config['zeldalogs.directory'],
