@@ -13,6 +13,10 @@ require_once __DIR__.'/vendor/silex.phar';
 
 $app = new Silex\Application();
 
+if (!file_exists(__DIR__.'/config.php')) {
+    throw new RuntimeException('You must create your own configuration file.');
+}
+
 // Configuration file
 require_once __DIR__.'/config.php';
 
