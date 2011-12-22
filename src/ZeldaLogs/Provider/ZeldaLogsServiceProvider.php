@@ -15,7 +15,7 @@ use Silex\ServiceProviderInterface;
 use Silex\Application;
 use Silex\SilexEvents;
 
-use Madalynn\mIRCParserExtension\mIRCParserExtension;
+use Madalynn\Twig\IRCParserExtension\IRCParserExtension;
 use ZeldaLogs\LogManager;
 
 class ZeldaLogsServiceProvider implements ServiceProviderInterface
@@ -32,7 +32,7 @@ class ZeldaLogsServiceProvider implements ServiceProviderInterface
         });
 
         $app['dispatcher']->addListener(SilexEvents::BEFORE, function() use($app) {
-            $app['twig']->addExtension(new mIRCParserExtension());
+            $app['twig']->addExtension(new IRCParserExtension());
         });
     }
 }

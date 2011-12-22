@@ -1,9 +1,9 @@
-[submodule "vendor/Twig"]
-	path = vendor/Twig
-	url = git://github.com/fabpot/Twig.git
+[submodule "vendor/irc-parser-extension"]
+	path = vendor/irc-parser-extension
+	url = https://github.com/aerialls/TwigIRCParserExtension.git
 [submodule "vendor/Symfony/Component/Finder"]
 	path = vendor/Symfony/Component/Finder
-	url = git://github.com/symfony/Finder.git
-[submodule "vendor/Madalynn/mIRCParserExtension"]
-	path = vendor/Madalynn/mIRCParserExtension
-	url = git://github.com/aerialls/mIRCParserExtension.git
+	url = https://github.com/symfony/Finder.git
+[submodule "vendor/twig"]
+	path = vendor/twig
+	url = https://github.com/fabpot/Twig.git

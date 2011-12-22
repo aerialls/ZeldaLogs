@@ -9,19 +9,19 @@
  * file that was distributed with this source code.
  */
 
-require_once __DIR__.'/vendor/Silex/silex.phar';
+require_once __DIR__.'/vendor/silex.phar';
 
 $app = new Silex\Application();
 
 $app['autoloader']->registerNamespaces(array(
-    'ZeldaLogs' => __DIR__.'/src',
-    'Madalynn'  => __DIR__.'/vendor',
-    'Symfony'   => __DIR__.'/vendor'
+    'ZeldaLogs'     => __DIR__.'/src',
+    'Madalynn\Twig' => __DIR__.'/vendor/irc-parser-extension/src',
+    'Symfony'       => __DIR__.'/vendor'
 ));
 
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path'       => __DIR__.'/views',
-    'twig.class_path' => __DIR__.'/vendor/Twig/lib',
+    'twig.class_path' => __DIR__.'/vendor/twig/lib',
 ));
 
 $app->register(new ZeldaLogs\Provider\ZeldaLogsServiceProvider(), array(
