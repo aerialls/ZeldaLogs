@@ -13,4 +13,4 @@ $config = array(
     'zeldalogs.directory' => __DIR__.'/logs'
 );
 
-$app['debug'] = true;
+$app['debug'] = false;
