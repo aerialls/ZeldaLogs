@@ -45,7 +45,7 @@ class SecurityServiceProvider implements ServiceProviderInterface
                 }
             }
 
-            if (!in_array($app['session']->get('username'), $app['zeldalogs.security.mails'])) {
+            if (!in_array(strtolower($app['session']->get('username')), $app['zeldalogs.security.mails'])) {
                 return new Response($app['twig']->render('forbidden.html.twig'), 403);
             }
         });
