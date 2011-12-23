@@ -1,13 +1,13 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Archives de l'année {{ year }}{% endblock %}
+{% block title %}Archives de l'année {{ current_year }}{% endblock %}
 
 {% block content %}
-    <h1>Liste des archives pour l'année {{ year }}</h1>
+    <h1>Liste des archives pour l'année {{ current_year }}</h1>
 
     <div class="paginator">
         {% for tmp in years %}
-            {% if tmp == logs %}
+            {% if tmp == year %}
                 <span class="current">{{ tmp.getName }}</span>
             {% else %}
                 <a class="highlight" href="{{ tmp.getUrl }}">{{ tmp.getName }}</a>
@@ -15,16 +15,17 @@
         {% endfor %}
     </div>
 
-    {% if not logs %}
+    {% if not year %}
         <div class="error">
             Aucune archive disponible pour cette année
         </div>
     {% else %}
         {% for i in 1..12 %}
-            {% set month =  logs.getMonth(i) %}
-            {% set days = month.numberOfDays %}
+            {% set month =  year.getMonth(i) %}
 
-            {% if month %}
+            {% if month is not null %}
+                {% set days = month.numberOfDays %}
+
                 <div class="calendar">
                     <div class="title">
                         {{ month.getName }}

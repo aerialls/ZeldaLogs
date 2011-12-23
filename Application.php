@@ -23,9 +23,9 @@ $app->get('/{year}', function(Application $app, $year) {
     $years = $app['log.manager']->getYears(true);
 
     return $app['twig']->render('year.html.twig', array(
-        'year' => $year,
-        'years' => $years,
-        'logs' => $logs,
+        'current_year' => $year,
+        'years'        => $years,
+        'year'         => $logs,
     ));
 })->value('year', date('Y'))
   ->assert('year', '\d{4}')
