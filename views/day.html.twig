@@ -5,7 +5,7 @@
 {% block content %}
 
     <div id="search_box">
-        <form id="search_form" method="post" action="/search">
+        <form id="search_form" method="post" action="{{ app.url_generator.generate('search') }}">
             <input type="text" id="search" name="search" />
             <input type="hidden" name="where" value="{{ day.getSerializedDate }}" />
             <a id="search_submit" class="medium awesome">Rechercher</a>

@@ -32,23 +32,20 @@ $app->get('/{year}', function(Application $app, $year) {
   ->bind('homepage');
 
 $app->get('/{year}/{month}/{day}/{page}', function(Application $app, $year, $month, $day, $page) {
-    $notFound = new NotFoundHttpException('Ce jour n\'est pas archivé.');
-
     try {
         $date = new \DateTime(implode('-', array($year, $month, $day)));
-    }
-    catch(\Exception $e) {
-        throw $notFound;
+    } catch(\Exception $e) {
+        $app->abort(404, 'La date est invalide.');
     }
 
     $day = $app['log.manager']->retrieveByDate($date);
 
     if (null === $day) {
-        throw $notFound;
+        $app->abort(404, 'Ce jour n\'est pas archivé, désolé.');
     }
 
     return $app['twig']->render('day.html.twig', array(
-        'day' => $day,
+        'day'  => $day,
         'page' => $page
     ));
 })->value('page', 1)
@@ -82,7 +79,7 @@ $app->post('/search', function(Application $app) {
         'search' => $search,
         'lines' => $lines
     ));
-});
+})->bind('search');
 
 $app->error(function (\Exception $e) use ($app) {
     return $app['twig']->render('error.html.twig', array('e' => $e));
