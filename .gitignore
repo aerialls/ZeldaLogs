@@ -1,3 +1,5 @@
 cache
 logs
 config.php
+vendor
+!vendor/silex.phar

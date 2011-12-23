@@ -1,0 +1,18 @@
+[twig]
+    git=https://github.com/fabpot/Twig.git
+
+[plum]
+    git=https://github.com/aerialls/Plum.git
+
+[lightopenid]
+    git=git://gitorious.org/lightopenid/lightopenid.git
+
+[irc-parser-extension]
+    git=https://github.com/aerialls/TwigIRCParserExtension.git
+
+[plum-service-provider]
+    git=https://github.com/aerialls/SilexPlumServiceProvider.git
+
+[finder-component]
+    git=https://github.com/symfony/Finder.git
+    target=Symfony/Component/Finder
