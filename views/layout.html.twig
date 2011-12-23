@@ -26,6 +26,11 @@
                 <div id="logout">
                     <a href="{{ app.url_generator.generate('logout') }}" class="awesome">Déconnexion</a>
                 </div>
+                {% if app.session.has('username') %}
+                    <div id="username">
+                        Connecté entant que {{ app.session.get('username') }}
+                    </div>
+                {% endif %}
             </div>
 
             <div id="space">

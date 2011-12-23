@@ -63,6 +63,12 @@ strong {
     top: 150px;
 }
 
+#username {
+    position: absolute;
+    top: 30px;
+    right: 190px;
+}
+
 #text {
     text-align: right;
     color: #426b7d;
