@@ -1,7 +1,6 @@
 {% extends 'layout.html.twig' %}
 
 {% block title %}Archives du {{ day.getFormattedDate }}{% endblock %}
-{% block year %}{{ day.getDate.format('Y') }}{% endblock %}
 
 {% block content %}
 
@@ -17,11 +16,9 @@
 
     {% include '_paginator.html.twig' %}
 
-    {% set logs = day.getPage(page) %}
-
-    {% for line in logs %}
+    {% for line in day.getPage(page) %}
         <div class="line">
-            {{- line | mirc_raw_parse -}}
+            {{- line|mirc_raw_parse -}}
         </div>
     {% else %}
         Rien à afficher pour le moment pour cette journée ...

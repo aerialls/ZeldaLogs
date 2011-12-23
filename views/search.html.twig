@@ -1,16 +1,15 @@
 {% extends 'layout.html.twig' %}
 
 {% block title %}Recherche{% endblock %}
-{% block year %}{{ day.getDate.format('Y') }}{% endblock %}
 
 {% block content %}
     <h1>Recherche de "{{ search }}" le {{ day.getFormattedDate }}</h1>
 
     {% for line in lines %}
         <div class="line">
-            {{- line | mirc_raw_parse -}}
+            {{- line|mirc_raw_parse -}}
         </div>
     {% else %}
-        La recherche n'a retourné aucun résultat.
+        <p>La recherche n'a retourné aucun résultat.</p>
     {% endfor %}
 {% endblock %}
