@@ -16,13 +16,6 @@ require_once __DIR__.'/vendor/lightopenid/openid.php';
 
 $app = new Silex\Application();
 
-if (!file_exists(__DIR__.'/config.php')) {
-    throw new RuntimeException('You must create your own configuration file.');
-}
-
-// Configuration file
-require_once __DIR__.'/config.php';
-
 $app['autoloader']->registerNamespaces(array(
     'ZeldaLogs'     => __DIR__.'/src',
     'Madalynn\Twig' => __DIR__.'/vendor/irc-parser-extension/src',
@@ -30,6 +23,13 @@ $app['autoloader']->registerNamespaces(array(
     'Plum\Silex'    => __DIR__.'/vendor/plum-service-provider/src',
     'Plum'          => __DIR__.'/vendor/plum/src'
 ));
+
+if (!file_exists(__DIR__.'/config.php')) {
+    throw new RuntimeException('You must create your own configuration file.');
+}
+
+// Configuration file
+require_once __DIR__.'/config.php';
 
 $app->register(new Silex\Provider\SessionServiceProvider());
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
@@ -48,18 +48,4 @@ $app->register(new ZeldaLogs\Silex\Provider\ProjectServiceProvider(), array(
 
 $app->register(new ZeldaLogs\Silex\Provider\SecurityServiceProvider(), array(
     'zeldalogs.security.mails' => $config['zeldalogs.security.mails']
-));
-
-$app->register(new Plum\Silex\Provider\PlumServiceProvider(), array(
-    'plum.servers' => array(
-        'bender' => array(
-            'host'    => 'bender.madalynn.eu',
-            'user'    => 'web',
-            'dir'     => '/home/web/madalynn.eu/zelda',
-            'port'    => 2222,
-            'options' => array(
-                'rsync_exclude' => __DIR__.'/rsync_exclude.txt'
-            )
-        )
-    )
 ));

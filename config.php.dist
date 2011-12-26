@@ -15,3 +15,18 @@ $config = array(
 );
 
 $app['debug'] = false;
+
+$app->register(new Plum\Silex\Provider\PlumServiceProvider(), array(
+    'plum.servers' => array(
+        'bender' => array(
+            'host'     => 'bender.madalynn.eu',
+            'user'     => 'web',
+            'dir'      => '/home/web/madalynn.eu/zelda',
+            'port'     => 2222,
+            'password' => null,
+            'options'  => array(
+                'rsync_exclude' => __DIR__.'/rsync_exclude.txt'
+            )
+        )
+    )
+));
